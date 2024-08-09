@@ -1,0 +1,68 @@
+<p *ngIf="!this.stories">Welcome to a better UI/UX for reading Hacker News. Click a link in the above menu to load stories.</p>
+
+<!-- Mobile -->
+<div *ngIf="!this.storyText" 
+    class="md:hidden flex flex-row justify-center mx-auto italic text-sm text-lime-500
+    border border-l-0 border-r-0 border-t-0 border-b-lime-400 pb-5">
+    <a href="" *ngIf="page > 1" (click)="prevClick($event)">Prev</a>
+    <span *ngIf="page > 1">&nbsp;|&nbsp;</span>
+    <a *ngIf="(this.stories?.length || 0) > 0 && this.stories.length <= this.storiesPerPage" 
+        href="" (click)="nextClick($event)">Next</a>
+</div>
+<p *ngIf="this.stories.length === 0" class="md:hidden flex flex-row justify-center text-sm text-lime-400">
+    Hmm... We're either loading, or there's nothing beyond this point. Wait a couple seconds and if no data loads, use the Prev link to go back.
+</p>
+<p class="md:hidden flex flex-row justify-center text-sm text-red-500" *ngIf="this.error">{{this.error}}</p>
+<ng-container *ngIf="!this.storyText">
+    <div *ngFor="let story of stories; let i = index"
+        class="md:hidden flex flex-col w-full hover:bg-stone-600 
+            border border-l-0 border-r-0 border-t-0 border-b-lime-400 py-3"
+        (click)="rowClick(story.id)">
+        <div class="flex flex-row justify-center">ID: {{story.id}}&nbsp; Score: {{story.score}}</div>
+        <div class="flex flex-row justify-center">
+            {{story.title}}
+        </div>
+    </div>
+    
+    <div class="md:hidden flex flex-row justify-center mx-auto italic text-sm text-lime-500
+        border border-l-0 border-r-0 border-t-0 border-b-lime-400 py-2">
+        <a href="" *ngIf="page > 1" (click)="prevClick($event)">Prev</a>
+        <span *ngIf="page > 1">&nbsp;|&nbsp;</span>
+        <a *ngIf="(this.stories?.length || 0) > 0 && this.stories.length <= this.storiesPerPage" 
+            href="" (click)="nextClick($event)">Next</a>
+    </div>
+</ng-container>
+<p class="md:hidden flex flex-row justify-start text-sm text-lime-400 mr-5" (click)="storyTextClick()">{{this.storyText}}</p>
+
+
+
+
+<!-- PC -->
+<div class="max-md:hidden flex flex-row justify-between text-lg underline">
+    <div class="basis-2/12">ID</div>
+    <div class="basis-9/12">Title</div>
+    <div class="basis-1/12">Score</div>
+</div>
+<div *ngFor="let story of stories; let i = index"
+    class="max-md:hidden flex flex-row justify-between hover:bg-stone-600"
+    (click)="rowClick(story.id)">
+    <div class="basis-2/12">{{story.id}}</div>
+    <div class="basis-9/12">
+        {{story.title}}
+    </div>
+    <div class="basis-1/12">
+        {{story.score}}
+    </div>
+</div>
+<div class="max-md:hidden flex flex-row justify-center mx-auto italic text-sm text-lime-500">
+    <a href="" *ngIf="page > 1" (click)="prevClick($event)">Prev</a>
+    <span *ngIf="page > 1">&nbsp;|&nbsp;</span>
+    <a *ngIf="(this.stories?.length || 0) > 0 && this.stories.length <= this.storiesPerPage"
+        href="" (click)="nextClick($event)">Next</a>
+</div>
+<p class="max-md:hidden flex flex-row justify-start text-lime-400">{{this.storyText}}</p>
+
+<p *ngIf="this.stories.length === 0" class="max-md:hidden flex flex-row justify-center text-lime-400">
+    Hmm... We're either loading, or there's nothing beyond this point. Wait a couple seconds and if no data loads, use the Prev link to go back.
+</p>
+<p class="max-md:hidden flex flex-row justify-center text-red-500" *ngIf="this.error">{{this.error}}</p>

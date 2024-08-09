@@ -1,0 +1,9 @@
+node_modules
+.vs
+.vscode
+/.cache
+/build
+.env
+bin
+obj
+Debug
